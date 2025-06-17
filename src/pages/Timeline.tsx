@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Text3D, Center, Float } from '@react-three/drei';
+import { OrbitControls, Float } from '@react-three/drei';
 import { ArrowLeft, ArrowRight, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -109,11 +109,11 @@ const Timeline = () => {
       {/* Main timeline container */}
       <div className="relative z-10 h-screen flex">
         {/* Left side - 3D Scene */}
-        <div className="w-1/2 h-full">
+        <div className="w-1/2 h-full relative">
           <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
             <ambientLight intensity={0.4} />
             <directionalLight position={[10, 10, 5]} intensity={1} />
-            <pointLight position={[-10, -10, -5]} intensity={0.5} color="#purple" />
+            <pointLight position={[-10, -10, -5]} intensity={0.5} color="#8B5CF6" />
             
             <Float speed={2} rotationIntensity={0.1} floatIntensity={0.2}>
               <TimelineModel 
@@ -124,6 +124,19 @@ const Timeline = () => {
             
             <OrbitControls enableZoom={false} enablePan={false} />
           </Canvas>
+          
+          {/* Year overlay */}
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+            <motion.div
+              key={currentYear}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="text-6xl font-bold text-white bg-black/20 backdrop-blur-sm rounded-lg px-6 py-3"
+            >
+              {timelineData[currentYear].year}
+            </motion.div>
+          </div>
         </div>
 
         {/* Right side - Timeline content */}

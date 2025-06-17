@@ -1,7 +1,7 @@
 
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Text3D, Center, Float } from '@react-three/drei';
+import { Float } from '@react-three/drei';
 import * as THREE from 'three';
 
 interface TimelineModelProps {
@@ -104,18 +104,6 @@ export const TimelineModel = ({ year, modelType }: TimelineModelProps) => {
       <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.3}>
         {renderModel()}
       </Float>
-      
-      <Center position={[0, -2.5, 0]}>
-        <Text3D
-          font="/fonts/helvetiker_regular.typeface.json"
-          size={0.3}
-          height={0.1}
-          curveSegments={12}
-        >
-          {year}
-          <meshPhongMaterial color="#ffffff" />
-        </Text3D>
-      </Center>
     </group>
   );
 };
